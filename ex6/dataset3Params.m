@@ -23,6 +23,34 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+sec = [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30];
+C_temp = sec(1);
+sigma_temp = sec(1);
+pre_temp=0;
+
+for i=1:8
+    for j=1:8
+        model = svmTrain(X, y, C_temp, @(x1, x2)gaussianKernel(x1, x2, sigma_temp));
+        predictions = svmPredict(model, Xval);
+        pre = mean(double(predictions ~= yval));
+        if(i==1&&j==1)
+            pre_temp = pre;
+        else if(pre<pre_temp)
+            pre_temp = pre;
+            C = C_temp;
+            sigma = sigma_temp;
+            end
+        end
+        C_temp = sec(i);
+        sigma_temp = sec(j);
+        %disp(C_temp);
+        %disp(sigma_temp);
+    end
+end
+
+%disp(C);
+%disp(sigma);
+
 
 
 

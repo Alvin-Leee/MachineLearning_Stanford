@@ -55,7 +55,14 @@ error_val   = zeros(m, 1);
 
 
 
-
+for i = 1:m
+    %disp(lambda);
+    theta = trainLinearReg(X(1:i, :), y(1:i), lambda);
+    %disp(theta);
+    error_train(i) = sum((X(1:i, :)*theta-y(1:i)).^2)/(2*i);%除以训练集的个数 ，不是m
+    error_val(i) = sum((Xval*theta-yval).^2)/(2*size(yval, 1));%除以cv的个数，不是m
+    
+end
 
 
 
