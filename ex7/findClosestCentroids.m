@@ -21,7 +21,19 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
+%disp(X)
+for i=1:size(X, 1)
+    d = distance(X(i, :), centroids(1, :));
+    %disp(d);
+    idx(i)=1;
+    for j=2:K
+        temp = distance(X(i, :), centroids(j, :));
+        if(temp<d)
+            d = temp;
+            idx(i)=j;
+        end
+    end
+end
 
 
 
